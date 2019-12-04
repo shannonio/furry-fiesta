@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Moment from 'moment';
 
 const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match }) => {
   if (!issues) {
