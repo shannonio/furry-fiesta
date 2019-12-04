@@ -1,5 +1,6 @@
 export function getRepos() {
-  return getGithubData('https://api.github.com/user/repos');
+  return getGithubData('https://api.github.com/user/repos?type=all&sort=updated');
+}
 }
 
 export function getUser() {
