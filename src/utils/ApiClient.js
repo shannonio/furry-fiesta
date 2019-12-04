@@ -1,6 +1,9 @@
 export function getRepos() {
   return getGithubData('https://api.github.com/user/repos?type=all&sort=updated');
 }
+
+export function getIssuesForRepo(username, repoName) {
+  return getGithubData(`https://api.github.com/repos/${username}/${repoName}/issues`);
 }
 
 export function getUser() {
