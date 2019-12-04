@@ -1,8 +1,12 @@
+@import '../styles/core';
+
 .Nav {
-  border-bottom: 1px solid black;
+  background-color: $light-grey;
+  color: $white;
+  font-weight: bold;
   padding: 1rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
 
   .login-form {
     display: flex;

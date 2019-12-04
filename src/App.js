@@ -8,6 +8,9 @@ function App() {
   return (
     <div className="App">
       <Nav />
+        <div className="App__hero">
+          <h1>Hello!</h1>
+        </div>
       <SelectRepo />
     </div>
   );
