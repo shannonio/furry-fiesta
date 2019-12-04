@@ -16,6 +16,18 @@ it('renders without crashing', () => {
         { id: 123 }
       ]
     },
+    issues: {
+      pending: false,
+      data: [
+        { id: 123 }
+      ]
+    },
+    user: {
+      pending: false,
+      data: [
+        { login: 'foo' }
+      ]
+    },
   });
 
   const component = ReactDOM.render((
