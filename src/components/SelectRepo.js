@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import logo from '../images/octocat.png';
 import './SelectRepo.scss';
 
-const SelectRepo = ({ repos, fetchRepos }) => {
+const SelectRepo = ({ repos, fetchRepos, history }) => {
   const [selectedRepo, setSelectedRepo] = useState({});
 
   if (!repos) {
@@ -12,6 +14,11 @@ const SelectRepo = ({ repos, fetchRepos }) => {
 
   if (!selectedRepo.id) {
     setSelectedRepo(repos[0]);
+  }
+
+  const selectRepo = (repo) => {
+    setSelectedRepo(repo);
+    history.push(`/repo/${repo.id}`);
   }
 
   const isOptionSelected = (opt) => opt.id === selectedRepo.id;
@@ -31,7 +38,7 @@ const SelectRepo = ({ repos, fetchRepos }) => {
   ));
 
   const selectOptions = repos.map((repo, idx) => (
-    <li onClick={() => setSelectedRepo(repo)} key={idx}>
+    <li onClick={() => selectRepo(repo)} key={idx}>
       <label className="select-box__option" htmlFor={idx} aria-hidden="aria-hidden">
         { repo.name }
       </label>
@@ -56,4 +63,4 @@ const SelectRepo = ({ repos, fetchRepos }) => {
 }
 
 
-export default SelectRepo;
+export default withRouter(SelectRepo);

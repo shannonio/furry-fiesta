@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.scss';
 
-import SelectRepo from './containers/SelectRepo';
 import Nav from './containers/Nav';
+import SelectRepo from './containers/SelectRepo';
+import IssueList from './components/IssueList';
 
 import {
   BrowserRouter as Router,
@@ -25,7 +26,7 @@ function App() {
               <SelectRepo />
             </Route>
             <Route path="/repo/:id">
-              Repo!
+              <IssueList />
             </Route>
           </Switch>
         </div>
