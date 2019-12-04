@@ -19,7 +19,7 @@
     background-color: $light-grey;
     color: $white;
 
-    &:hover, &__repos-row--active {
+    &:hover, &--active {
       font-weight: bold;
       cursor: pointer;
       background-color: $light-purple;

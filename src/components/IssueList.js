@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import placeholderAvatar from '../images/person.jpeg';
 import Moment from 'moment';
 
 import './IssueList.scss';
 
-const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match }) => {
-  if (!issues) {
-    fetchIssues(match.params.owner, match.params.name);
-    return null;
-  }
+const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match, history }) => {
+  useEffect(() => {
+    if (!repos) {
+      fetchRepos();
+    }
 
-  if (!repos) {
-    fetchRepos();
-    return null;
-  }
+    if (!issues) {
+      fetchIssues(match.params.owner, match.params.name);
+    }
+  }, []);
 
   const avatarUrl = issue => issue.assignee ? issue.assignee.avatar_url : placeholderAvatar;
 
-  const issueList = issues.map(issue =>(
+  const isActiveRepoClass = repo => repo.name === match.params.name ? 'IssueList__repos-row--active' : '';
+
+  const changeRepo = repo => {
+    history.push(`/repo/${repo.owner.login}/${repo.name}`);
+    fetchIssues(repo.owner.login, repo.name);
+  };
+
+  const issueList = () => issues.map(issue =>(
     <div className="IssueList__issues-row" key={issue.id}>
       <span className="IssueList__issues-row--avatar">
         <img src={ avatarUrl(issue) } />
@@ -32,12 +39,14 @@ const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match }) => {
         { Moment(issue.updated_at).fromNow() }
       </span>
     </div>
-  ))
+  ));
 
-  const repoList = repos.map(repo =>(
-    <div className="IssueList__repos-row" key={repo.id}>
+  const repoList = () => repos.map(repo =>(
+    <div className={`IssueList__repos-row ${isActiveRepoClass(repo)}`}
+         onClick={() => changeRepo(repo)}
+         key={repo.id}>
       <span className="IssueList__repos-row--name">
-        {repo.name}
+        { repo.name }
       </span>
     </div>
   ))
@@ -45,7 +54,7 @@ const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match }) => {
   return (
     <div className="IssueList">
       <div className="IssueList__repos">
-      { repoList }
+      { repos && repoList() }
       </div>
       <div className="IssueList__issues">
         <div className="IssueList__issues-row IssueList__issues-row--header">
@@ -62,7 +71,7 @@ const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match }) => {
             Last Updated
           </span>
         </div>
-        { issueList }
+        { issues && issueList() }
       </div>
     </div>
   );
