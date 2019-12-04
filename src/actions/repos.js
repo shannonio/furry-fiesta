@@ -37,7 +37,7 @@ export function fetchReposPending() {
 export function fetchReposSuccess(repos) {
   return {
     type: FETCH_REPOS_SUCCESS,
-    repos: repos
+    repos
   }
 }
 

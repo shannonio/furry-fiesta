@@ -34,10 +34,10 @@ export function fetchIssuesPending() {
   }
 }
 
-export function fetchIssuesSuccess(repos) {
+export function fetchIssuesSuccess(issues) {
   return {
     type: FETCH_ISSUES_SUCCESS,
-    repos: repos
+    issues
   }
 }
 
