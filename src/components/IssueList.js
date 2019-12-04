@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 
-const IssueList = ({ }) => {
+const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match }) => {
+  if (!issues) {
+    fetchIssues(match.params.owner, match.params.name);
+    return null;
+  }
+
+  if (!repos) {
+    fetchRepos();
+    return null;
+  }
+
   return (
     <div className="IssueList">
-      Issues!!!!
+      <div className="IssueList__repos">
+      </div>
+      <div className="IssueList__issues">
+      </div>
     </div>
   );
 }
