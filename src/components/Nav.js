@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import './Nav.scss';
 
-const Nav = ({ user, fetchUser }) => {
-  if (!user) {
-    fetchUser();
-    return null;
-  }
-
+const Nav = ({ user }) => {
   return (
     <div className="Nav">
       <div>

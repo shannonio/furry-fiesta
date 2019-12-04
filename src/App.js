@@ -1,7 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import fetchUser from './actions/user';
+import { getUser } from './reducers/user';
+
 import './App.scss';
 
-import Nav from './containers/Nav';
+import Nav from './components/Nav';
 import SelectRepo from './containers/SelectRepo';
 import IssueList from './components/IssueList';
 
@@ -12,11 +17,16 @@ import {
   Link
 } from "react-router-dom";
 
-function App() {
+function App({ user, fetchUser }) {
+  if (!user) {
+    fetchUser();
+    return null;
+  }
+
   return (
     <Router>
       <div className="App">
-        <Nav />
+        <Nav user={user}/>
         <div className="App__hero">
         <h1>Hello!</h1>
         </div>
@@ -35,4 +45,21 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: getUser(state)
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUser: () => fetchUser()(dispatch)
+  }
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default AppContainer
