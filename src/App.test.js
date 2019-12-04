@@ -10,7 +10,12 @@ const mockStore = configureStore([]);
 it('renders without crashing', () => {
   const div = document.createElement('div');
   const store = mockStore({
-    user: {},
+    repos: {
+      pending: false,
+      data: [
+        { id: 123 }
+      ]
+    },
   });
 
   const component = ReactDOM.render((
