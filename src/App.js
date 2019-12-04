@@ -4,15 +4,33 @@ import './App.scss';
 import SelectRepo from './containers/SelectRepo';
 import Nav from './containers/Nav';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 function App() {
   return (
-    <div className="App">
-      <Nav />
+    <Router>
+      <div className="App">
+        <Nav />
         <div className="App__hero">
-          <h1>Hello!</h1>
+        <h1>Hello!</h1>
         </div>
-      <SelectRepo />
-    </div>
+        <div className="App__container">
+          <Switch>
+            <Route exact path="/">
+              <SelectRepo />
+            </Route>
+            <Route path="/repo/:id">
+              Repo!
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
