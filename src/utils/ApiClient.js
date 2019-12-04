@@ -9,7 +9,7 @@ export function getUser() {
 async function getGithubData(url = '', data = {}) {
   const response = await fetch(url, {
     method: 'GET',
-    cache: 'force-cache',
+    cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `token ${process.env.REACT_APP_GITHUB_TOKEN}`
