@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Nav.scss';
 
-const Nav = ({ user, logIn }) => {
+const Nav = ({ user = { name: 'Drogon' }, logIn }) => {
   const [newUser, setNewUser] = useState('');
 
   const handleInputChange = e => setNewUser(e.target.value);
