@@ -18,7 +18,7 @@ const SelectRepo = ({ repos, fetchRepos, history }) => {
 
   const selectRepo = (repo) => {
     setSelectedRepo(repo);
-    history.push(`/repo/${repo.id}`);
+    history.push(`/repo/${repo.owner.login}/${repo.name}`);
   }
 
   const isOptionSelected = (opt) => opt.id === selectedRepo.id;
