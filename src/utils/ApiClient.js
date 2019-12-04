@@ -1,8 +1,12 @@
 export function getRepos() {
-  return getData('https://api.github.com/user/repos');
+  return getGithubData('https://api.github.com/user/repos');
 }
 
-async function getData(url = '', data = {}) {
+export function getUser() {
+  return getGithubData(`https://api.github.com/user`);
+}
+
+async function getGithubData(url = '', data = {}) {
   const response = await fetch(url, {
     method: 'GET',
     cache: 'force-cache',

@@ -1,18 +1,17 @@
 import { connect } from 'react-redux';
-import { setUser } from '../actions/user';
-import Nav from '../components/Nav'
+import fetchUser from '../actions/user';
+import { getUser } from '../reducers/user';
+import Nav from '../components/Nav';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user
+    user: getUser(state)
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logIn: (userName) => {
-      dispatch(setUser({ name: userName }))
-    }
+    fetchUser: () => fetchUser()(dispatch)
   }
 };
 

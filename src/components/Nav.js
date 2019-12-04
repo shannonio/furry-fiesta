@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import './Nav.scss';
 
-const Nav = ({ user = { name: 'Drogon' }, logIn }) => {
-  const [newUser, setNewUser] = useState('');
-
-  const handleInputChange = e => setNewUser(e.target.value);
+const Nav = ({ user, fetchUser }) => {
+  if (!user) {
+    fetchUser();
+    return null;
+  }
 
   return (
     <div className="Nav">
-      Welcome { user.name }
-      { !user.name && (
-        <div className="login-form">
-          <input onChange={handleInputChange} value={newUser} />
-          <button onClick={() => logIn(newUser)}>Log In!</button>
-        </div>
-      )}
+      <div>
+        Welcome {user.login }
+      </div>
+      <div className="Nav__avatar">
+        <img src={user.avatar_url} />
+      </div>
     </div>
   );
 }
