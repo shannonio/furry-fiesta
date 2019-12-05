@@ -3,7 +3,7 @@ import { getRepos } from '../utils/ApiClient';
 function fetchRepos() {
   return dispatch => {
     dispatch(fetchReposPending());
-    getRepos().then(res => {
+    return getRepos().then(res => {
       if(res.error) {
         throw(res.error);
       }

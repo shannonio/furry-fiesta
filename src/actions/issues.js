@@ -3,7 +3,7 @@ import { getIssuesForRepo } from '../utils/ApiClient';
 function fetchIssues(username, repo) {
   return dispatch => {
     dispatch(fetchIssuesPending());
-    getIssuesForRepo(username, repo).then(res => {
+    return getIssuesForRepo(username, repo).then(res => {
       if(res.error) {
         throw(res.error);
       }
