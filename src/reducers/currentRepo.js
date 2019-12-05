@@ -13,6 +13,6 @@ function currentRepo(state = {}, action) {
   }
 }
 
-export const getCurrentRepo = (state) => state.currentRepo;
+export const getCurrentRepo = state => state.currentRepo;
 
 export default currentRepo;
