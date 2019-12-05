@@ -5,9 +5,18 @@ import { createStore } from 'redux';
 
 import './index.scss';
 import App from './App';
+import { loadState, saveState } from './utils/LocalStorage';
 import myAppReducer from './reducers';
 
-const store = createStore(myAppReducer, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const persistedState = loadState();
+
+const store = createStore(myAppReducer, persistedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+store.subscribe(() => {
+  saveState({
+    prioritizedIssues: store.getState().prioritizedIssues
+  });
+});
 
 render(
   <Provider store={store}>
