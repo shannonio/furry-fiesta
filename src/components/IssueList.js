@@ -29,11 +29,8 @@ const IssueList = ({
       })
     }
 
-    if (!prioritizedIssues) {
-      fetchIssues(match.params.owner, match.params.name)
-        .then((res) => {
-          updatePrioritizedIssues(match.params.name, res)
-        })
+    if (!issues) {
+      fetchIssues(match.params.owner, match.params.name);
     }
 
     if (repos) {
@@ -58,9 +55,9 @@ const IssueList = ({
     e.preventDefault();
     const moveTo = e.target.id || e.target.parentElement.id;
     const moveFrom = e.dataTransfer.getData("issueId");
-    const prioritizedIssuesCopy = Array.from(prioritizedIssues);
+    const prioritizedIssuesCopy = Array.from(issueListToUse);
     prioritizedIssuesCopy.splice(moveFrom, 1);
-    prioritizedIssuesCopy.splice(moveTo, 0, prioritizedIssues[moveFrom]);
+    prioritizedIssuesCopy.splice(moveTo, 0, issueListToUse[moveFrom]);
     updatePrioritizedIssues(currentRepo.name, prioritizedIssuesCopy);
   }
 
@@ -74,7 +71,9 @@ const IssueList = ({
     e.preventDefault();
   }
 
-  const issueList = () => prioritizedIssues.map((issue, idx) => (
+  const issueListToUse = prioritizedIssues || issues;
+
+  const issueList = () => issueListToUse.map((issue, idx) => (
     <div className="IssueList__issues-row"
          onDragOver={allowDrop}
          draggable="true"
@@ -126,7 +125,7 @@ const IssueList = ({
             Last Updated
           </span>
         </div>
-        { prioritizedIssues && issueList() }
+        { issueListToUse && issueList() }
       </div>
     </div>
   );
