@@ -6,14 +6,16 @@ function prioritizedIssues(state = {}, action) {
   switch(action.type) {
     case UPDATE_PRIORITIZED_ISSUES:
       return {
-        [action.repoName]: action.issues,
-        ...state
+        ...state,
+        [action.repoName]: action.issues
       }
     default:
       return state;
   }
 }
 
-export const getPrioritizedIssues = (state) => state.prioritizedIssues[state.currentRepo.name];
+export const getPrioritizedIssues = (state) => {
+  return state.currentRepo ? state.prioritizedIssues[state.currentRepo.name] : [];
+};
 
 export default prioritizedIssues;
