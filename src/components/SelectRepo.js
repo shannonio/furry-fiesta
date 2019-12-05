@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import logo from '../images/octocat.png';
 import './SelectRepo.scss';
 
-const SelectRepo = ({ repos, fetchRepos, history }) => {
+const SelectRepo = ({ repos, fetchRepos, updateCurentRepo, history }) => {
   const [selectedRepo, setSelectedRepo] = useState({});
 
   if (!repos) {
@@ -18,6 +18,7 @@ const SelectRepo = ({ repos, fetchRepos, history }) => {
 
   const selectRepo = (repo) => {
     setSelectedRepo(repo);
+    updateCurentRepo(repo);
     history.push(`/repo/${repo.owner.login}/${repo.name}`);
   }
 

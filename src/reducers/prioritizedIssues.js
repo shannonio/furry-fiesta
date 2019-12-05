@@ -5,7 +5,6 @@ import {
 function prioritizedIssues(state = {}, action) {
   switch(action.type) {
     case UPDATE_PRIORITIZED_ISSUES:
-      console.log(action)
       return {
         [action.repoName]: action.issues,
         ...state
@@ -15,6 +14,6 @@ function prioritizedIssues(state = {}, action) {
   }
 }
 
-export const getPrioritizedIssues = (state, repoName) => state.prioritizedIssues[repoName];
+export const getPrioritizedIssues = (state) => state.prioritizedIssues[state.currentRepo.name];
 
 export default prioritizedIssues;
