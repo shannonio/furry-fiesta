@@ -6,7 +6,7 @@
 
   &__row {
     display: grid;
-    grid-template-columns: 150px repeat(3, 1fr);
+    grid-template-columns: 20% repeat(3, 1fr);
     justify-items: start;
     align-items: center;
     padding: .5rem 0;
@@ -14,6 +14,7 @@
     &:hover {
       cursor: pointer;
       background-color: $off-white;
+      transition: 0.218s background-color ease-in-out;
     }
   }
 
