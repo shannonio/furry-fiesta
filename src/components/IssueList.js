@@ -1,17 +1,46 @@
 import React, { useEffect } from 'react';
 import placeholderAvatar from '../images/person.jpeg';
 import Moment from 'moment';
+import { find } from 'lodash';
 
 import './IssueList.scss';
 
-const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match, history }) => {
+const IssueList = ({
+    repos,
+    issues,
+    prioritizedIssues,
+    currentRepo,
+    user,
+    fetchIssues,
+    fetchRepos,
+    updateCurentRepo,
+    match,
+    history,
+    updatePrioritizedIssues
+  }) => {
+
   useEffect(() => {
     if (!repos) {
-      fetchRepos();
+      fetchRepos().then((res) => {
+        const repo = find(res, o => {
+          return o.name === match.params.name
+        });
+        updateCurentRepo(repo);
+      })
     }
 
-    if (!issues) {
-      fetchIssues(match.params.owner, match.params.name);
+    if (!prioritizedIssues) {
+      fetchIssues(match.params.owner, match.params.name)
+        .then((res) => {
+          updatePrioritizedIssues(match.params.name, res)
+        })
+    }
+
+    if (repos) {
+      const repo = find(repos, o => {
+        return o.name === match.params.name
+      });
+      updateCurentRepo(repo);
     }
   }, []);
 
@@ -21,11 +50,37 @@ const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match, histor
 
   const changeRepo = repo => {
     history.push(`/repo/${repo.owner.login}/${repo.name}`);
+    updateCurentRepo(repo);
     fetchIssues(repo.owner.login, repo.name);
   };
 
-  const issueList = () => issues.map(issue =>(
-    <div className="IssueList__issues-row" key={issue.id}>
+  const drop = (e) => {
+    e.preventDefault();
+    const moveTo = e.target.id || e.target.parentElement.id;
+    const moveFrom = e.dataTransfer.getData("issueId");
+    const prioritizedIssuesCopy = Array.from(prioritizedIssues);
+    prioritizedIssuesCopy.splice(moveFrom, 1);
+    prioritizedIssuesCopy.splice(moveTo, 0, prioritizedIssues[moveFrom]);
+    updatePrioritizedIssues(currentRepo.name, prioritizedIssuesCopy);
+  }
+
+  const drag = (issueId, issue) => {
+    return (e) => {
+      e.dataTransfer.setData("issueId", issueId);
+    }
+  }
+
+  const allowDrop = (e) => {
+    e.preventDefault();
+  }
+
+  const issueList = () => prioritizedIssues.map((issue, idx) => (
+    <div className="IssueList__issues-row"
+         onDragOver={allowDrop}
+         draggable="true"
+         onDragStart={drag(idx, issue)}
+         id={idx}
+         key={issue.id}>
       <span className="IssueList__issues-row--avatar">
         <img src={ avatarUrl(issue) } />
       </span>
@@ -56,7 +111,7 @@ const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match, histor
       <div className="IssueList__repos">
       { repos && repoList() }
       </div>
-      <div className="IssueList__issues">
+      <div className="IssueList__issues" onDrop={drop}>
         <div className="IssueList__issues-row IssueList__issues-row--header">
           <span className="IssueList__issues-row--avatar">
             Assignee
@@ -71,7 +126,7 @@ const IssueList = ({ repos, issues, user, fetchIssues, fetchRepos, match, histor
             Last Updated
           </span>
         </div>
-        { issues && issueList() }
+        { prioritizedIssues && issueList() }
       </div>
     </div>
   );
