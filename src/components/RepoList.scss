@@ -1,0 +1,27 @@
+@import '../styles/core';
+
+.RepoList {
+  &__repos {
+    display: grid;
+    float: left;
+    grid-template-rows: 1fr;
+    padding: 1rem;
+    align-items: start;
+  }
+
+  &__repos-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    padding: 1rem;
+    background-color: $light-grey;
+    color: $white;
+
+    &:hover, &--active {
+      font-weight: bold;
+      cursor: pointer;
+      background-color: $light-purple;
+      transition: 0.218s all ease-in-out;
+    }
+  }
+}

@@ -8,7 +8,7 @@ import './App.scss';
 
 import Nav from './components/Nav';
 import SelectRepo from './containers/SelectRepo';
-import IssueList from './containers/IssueList';
+import IssueView from './components/IssueView';
 
 import {
   BrowserRouter as Router,
@@ -28,12 +28,12 @@ function App({ user, fetchUser }) {
       <div className="App">
         <Nav user={user}/>
         <div className="App__hero">
-        <h1>Hello!</h1>
+          <h1>Hello!</h1>
         </div>
         <div className="App__container">
           <Switch>
             <Route exact path="/" component={SelectRepo} />
-            <Route path="/repo/:owner/:name" component={IssueList} />
+            <Route path="/repo/:owner/:name" component={IssueView} />
           </Switch>
         </div>
       </div>

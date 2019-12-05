@@ -1,55 +1,27 @@
 import React, { useEffect } from 'react';
 import placeholderAvatar from '../images/person.jpeg';
 import Moment from 'moment';
-import { find } from 'lodash';
+import { withRouter } from 'react-router-dom';
 
 import './IssueList.scss';
 
+import RepoList from '../containers/RepoList';
+
 const IssueList = ({
-    repos,
     issues,
     prioritizedIssues,
     currentRepo,
-    user,
     fetchIssues,
-    fetchRepos,
-    updateCurentRepo,
     match,
     history,
     updatePrioritizedIssues
   }) => {
 
   useEffect(() => {
-    if (!repos) {
-      fetchRepos().then((res) => {
-        const repo = find(res, o => {
-          return o.name === match.params.name
-        });
-        updateCurentRepo(repo);
-      })
-    }
-
-    if (!issues) {
-      fetchIssues(match.params.owner, match.params.name);
-    }
-
-    if (repos) {
-      const repo = find(repos, o => {
-        return o.name === match.params.name
-      });
-      updateCurentRepo(repo);
-    }
-  }, []);
+    fetchIssues(match.params.owner, match.params.name);
+  }, [match.params.name]);
 
   const avatarUrl = issue => issue.assignee ? issue.assignee.avatar_url : placeholderAvatar;
-
-  const isActiveRepoClass = repo => repo.name === match.params.name ? 'IssueList__repos-row--active' : '';
-
-  const changeRepo = repo => {
-    history.push(`/repo/${repo.owner.login}/${repo.name}`);
-    updateCurentRepo(repo);
-    fetchIssues(repo.owner.login, repo.name);
-  };
 
   const drop = (e) => {
     e.preventDefault();
@@ -74,62 +46,47 @@ const IssueList = ({
   const issueListToUse = prioritizedIssues || issues;
 
   const issueList = () => issueListToUse.map((issue, idx) => (
-    <div className="IssueList__issues-row"
+    <div className="IssueList__row"
          onDragOver={allowDrop}
          draggable="true"
          onDragStart={drag(idx, issue)}
          id={idx}
          key={issue.id}>
-      <span className="IssueList__issues-row--avatar">
+      <span className="IssueList__row--avatar">
         <img src={ avatarUrl(issue) } />
       </span>
-      <span className="IssueList__issues-row--title">
+      <span className="IssueList__row--title">
         { issue.title }
       </span>
-      <span className="IssueList__issues-row--created">
+      <span className="IssueList__row--created">
         { Moment(issue.created_at).format('MM/DD/YYYY') }
       </span>
-      <span className="IssueList__issues-row--updated">
+      <span className="IssueList__row--updated">
         { Moment(issue.updated_at).fromNow() }
       </span>
     </div>
   ));
 
-  const repoList = () => repos.map(repo =>(
-    <div className={`IssueList__repos-row ${isActiveRepoClass(repo)}`}
-         onClick={() => changeRepo(repo)}
-         key={repo.id}>
-      <span className="IssueList__repos-row--name">
-        { repo.name }
-      </span>
-    </div>
-  ))
-
   return (
-    <div className="IssueList">
-      <div className="IssueList__repos">
-      { repos && repoList() }
+    <div className="IssueList" onDrop={drop}>
+      <div className="IssueList__row IssueList__row--header">
+        <span className="IssueList__row--avatar">
+          Assignee
+        </span>
+        <span className="IssueList__row--title">
+          Issue Title
+        </span>
+        <span className="IssueList__row--created">
+          Created At
+        </span>
+        <span className="IssueList__row--updated">
+          Last Updated
+        </span>
       </div>
-      <div className="IssueList__issues" onDrop={drop}>
-        <div className="IssueList__issues-row IssueList__issues-row--header">
-          <span className="IssueList__issues-row--avatar">
-            Assignee
-          </span>
-          <span className="IssueList__issues-row--title">
-            Issue Title
-          </span>
-          <span className="IssueList__issues-row--created">
-            Created At
-          </span>
-          <span className="IssueList__issues-row--updated">
-            Last Updated
-          </span>
-        </div>
-        { issueListToUse && issueList() }
-      </div>
+      { issueListToUse && issueList() }
     </div>
   );
 }
 
 
-export default IssueList;
+export default withRouter(IssueList);
