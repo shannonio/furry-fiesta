@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import { find } from 'lodash';
 
 import './RepoList.scss';
@@ -50,4 +49,4 @@ const RepoList = ({
 }
 
 
-export default withRouter(RepoList);
+export default RepoList;

@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
+import RepoList from '../RepoList';
 
-import IssueList from '../IssueList';
-
-describe('IssueList', () => {
+describe('RepoList', () => {
   const repos = [
     { name: 'Snarf', owner: { login: 'Blaster' }, id: '1' },
     { name: 'Mermaid', owner: { login: 'Little' }, id: '2' }
@@ -20,7 +19,7 @@ describe('IssueList', () => {
         id: repos[0].owner.login
       }
     } },
-    updatePrioritizedIssues: jest.fn(),
+    updateCurentRepo: jest.fn(),
     history: { push: jest.fn() },
     currentRepo: repos[0],
     fetchRepos: jest.fn(),
@@ -29,7 +28,7 @@ describe('IssueList', () => {
 
   const createComponent = (props = initialProps) => (
     mount(
-      <IssueList {...props} />
+      <RepoList {...props} />
     )
   )
 
@@ -39,7 +38,20 @@ describe('IssueList', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('fetches issues when url changes', () => {
+  it('has the correct active repo highlighted', () => {
+    const component = createComponent();
+    expect(component.find('.RepoList__repos-row--active').text()).toBe(initialProps.currentRepo.name);
+  });
+
+  it('changes the currentRepo onClick', () => {
+    const component = createComponent();
+    const lastRepoIdx = repos.length - 1;
+    component.find('.RepoList__repos-row').last().simulate('click');
+
+    expect(initialProps.history.push).toHaveBeenCalledWith(`/repo/${repos[lastRepoIdx].owner.login}/${repos[lastRepoIdx].name}`);
+  });
+
+  it('calls updateCurentRepo on url change', () => {
     const component = createComponent();
     const lastRepoIdx = repos.length - 1;
 
@@ -51,13 +63,11 @@ describe('IssueList', () => {
           id: repos[lastRepoIdx].owner.login
         }
       }
-    }
-
-    initialProps.fetchIssues.mockClear();
+    };
 
     component.setProps(props);
 
-    expect(initialProps.fetchIssues).toHaveBeenCalled();
+    expect(initialProps.updateCurentRepo).toHaveBeenCalledWith(repos[lastRepoIdx]);
   });
 
 });

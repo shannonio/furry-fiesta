@@ -1,84 +1,99 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IssueList renders without crashing 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <div
-        class="IssueList"
-      >
-        <div
-          class="IssueList__repos"
-        />
-        <div
-          class="IssueList__issues"
-        />
-      </div>
-    </div>
-  </body>,
-  "container": <div>
+<IssueList
+  currentRepo={
+    Object {
+      "id": "1",
+      "name": "Snarf",
+      "owner": Object {
+        "login": "Blaster",
+      },
+    }
+  }
+  fetchIssues={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "id": "Blaster",
+          },
+          "Snarf",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  fetchRepos={[MockFunction]}
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  issues={Array []}
+  match={
+    Object {
+      "params": Object {
+        "name": "Snarf",
+        "owner": Object {
+          "id": "Blaster",
+        },
+      },
+    }
+  }
+  repos={
+    Array [
+      Object {
+        "id": "1",
+        "name": "Snarf",
+        "owner": Object {
+          "login": "Blaster",
+        },
+      },
+      Object {
+        "id": "2",
+        "name": "Mermaid",
+        "owner": Object {
+          "login": "Little",
+        },
+      },
+    ]
+  }
+  updatePrioritizedIssues={[MockFunction]}
+>
+  <div
+    className="IssueList"
+    onDrop={[Function]}
+  >
     <div
-      class="IssueList"
+      className="IssueList__row IssueList__row--header"
     >
-      <div
-        class="IssueList__repos"
-      />
-      <div
-        class="IssueList__issues"
-      />
+      <span
+        className="IssueList__row--avatar"
+      >
+        Assignee
+      </span>
+      <span
+        className="IssueList__row--title"
+      >
+        Issue Title
+      </span>
+      <span
+        className="IssueList__row--created"
+      >
+        Created At
+      </span>
+      <span
+        className="IssueList__row--updated"
+      >
+        Last Updated
+      </span>
     </div>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
+  </div>
+</IssueList>
 `;

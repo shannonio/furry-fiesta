@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import placeholderAvatar from '../images/person.jpeg';
 import Moment from 'moment';
-import { withRouter } from 'react-router-dom';
 
 import './IssueList.scss';
-
-import RepoList from '../containers/RepoList';
 
 const IssueList = ({
     issues,
@@ -23,6 +20,10 @@ const IssueList = ({
 
   const avatarUrl = issue => issue.assignee ? issue.assignee.avatar_url : placeholderAvatar;
 
+  const issueListToUse = prioritizedIssues || issues;
+
+
+  // TODO: Move Drag and Drop methods into a reuseable reorderable list componenet
   const drop = (e) => {
     e.preventDefault();
     const moveTo = e.target.id || e.target.parentElement.id;
@@ -42,8 +43,6 @@ const IssueList = ({
   const allowDrop = (e) => {
     e.preventDefault();
   }
-
-  const issueListToUse = prioritizedIssues || issues;
 
   const issueList = () => issueListToUse.map((issue, idx) => (
     <div className="IssueList__row"
@@ -89,4 +88,4 @@ const IssueList = ({
 }
 
 
-export default withRouter(IssueList);
+export default IssueList;

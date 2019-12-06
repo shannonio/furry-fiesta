@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepoList renders without crashing 1`] = `
+<RepoList
+  currentRepo={
+    Object {
+      "id": "1",
+      "name": "Snarf",
+      "owner": Object {
+        "login": "Blaster",
+      },
+    }
+  }
+  fetchIssues={[MockFunction]}
+  fetchRepos={[MockFunction]}
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  issues={Array []}
+  match={
+    Object {
+      "params": Object {
+        "name": "Snarf",
+        "owner": Object {
+          "id": "Blaster",
+        },
+      },
+    }
+  }
+  repos={
+    Array [
+      Object {
+        "id": "1",
+        "name": "Snarf",
+        "owner": Object {
+          "login": "Blaster",
+        },
+      },
+      Object {
+        "id": "2",
+        "name": "Mermaid",
+        "owner": Object {
+          "login": "Little",
+        },
+      },
+    ]
+  }
+  updateCurentRepo={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "id": "1",
+            "name": "Snarf",
+            "owner": Object {
+              "login": "Blaster",
+            },
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+>
+  <div
+    className="RepoList"
+  >
+    <div
+      className="RepoList__repos"
+    >
+      <div
+        className="RepoList__repos-row RepoList__repos-row--active"
+        key="1"
+        onClick={[Function]}
+      >
+        <span
+          className="RepoList__repos-row--name"
+        >
+          Snarf
+        </span>
+      </div>
+      <div
+        className="RepoList__repos-row "
+        key="2"
+        onClick={[Function]}
+      >
+        <span
+          className="RepoList__repos-row--name"
+        >
+          Mermaid
+        </span>
+      </div>
+    </div>
+  </div>
+</RepoList>
+`;

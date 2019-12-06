@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import fetchIssues from '../actions/issues';
 import fetchRepos from '../actions/repos';
@@ -33,6 +34,6 @@ const mapDispatchToProps = (dispatch) => {
 const IssueListContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(IssueList);
+)(withRouter(IssueList));
 
 export default IssueListContainer
