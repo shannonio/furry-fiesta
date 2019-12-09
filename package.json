@@ -2,6 +2,10 @@
   "name": "ShannonBertucci",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "^6.11.3",
+    "node": "^12.12.0"
+  },
   "dependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
