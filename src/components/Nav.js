@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Nav.scss';
 
 const Nav = ({ user }) => {
@@ -8,7 +8,7 @@ const Nav = ({ user }) => {
         Welcome {user.login }
       </div>
       <div className="Nav__avatar">
-        <img src={user.avatar_url} />
+        <img src={user.avatar_url} alt="avatar" />
       </div>
     </div>
   );

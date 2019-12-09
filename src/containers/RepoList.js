@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import fetchIssues from '../actions/issues';
 import fetchRepos from '../actions/repos';
-import { updatePrioritizedIssues } from '../actions/prioritizedIssues';
 import { updateCurentRepo } from '../actions/currentRepo';
 
-import { getIssues } from '../reducers/issues';
 import { getRepos } from '../reducers/repos';
 import { getUser } from '../reducers/user';
-import { getPrioritizedIssues } from '../reducers/prioritizedIssues';
 import { getCurrentRepo } from '../reducers/currentRepo';
 
 import RepoList from '../components/RepoList'

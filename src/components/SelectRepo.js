@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import logo from '../images/octocat.png';
 import './SelectRepo.scss';
 
 const SelectRepo = ({ repos, fetchRepos, updateCurentRepo, history }) => {
@@ -40,7 +39,7 @@ const SelectRepo = ({ repos, fetchRepos, updateCurentRepo, history }) => {
 
   const selectOptions = repos.map((repo, idx) => (
     <li onClick={() => selectRepo(repo)} key={idx}>
-      <label className="select-box__option" htmlFor={idx} aria-hidden="aria-hidden">
+      <label className="select-box__option" htmlFor={idx}>
         { repo.name }
       </label>
     </li>

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 
 import './IssueView.scss';
 
@@ -17,4 +16,4 @@ const IssueView = () => {
 }
 
 
-export default withRouter(IssueView);
+export default IssueView;

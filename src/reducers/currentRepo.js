@@ -2,10 +2,6 @@ import {
   UPDATE_CURRENT_REPO,
 } from '../actions/currentRepo';
 
-import {
-  clearIssues,
-} from '../actions/issues';
-
 function currentRepo(state = {}, action) {
   switch(action.type) {
     case UPDATE_CURRENT_REPO:

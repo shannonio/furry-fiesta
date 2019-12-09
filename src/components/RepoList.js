@@ -14,14 +14,14 @@ const RepoList = ({
 
   useEffect(() => {
     if (!repos) { fetchRepos() }
-  }, []);
+  }, [fetchRepos, repos]);
 
   useEffect(() => {
     const repo = find(repos, o => {
       return o.name === match.params.name
     });
     updateCurentRepo(repo);
-  }, [repos, match.params.name])
+  }, [repos, match.params.name, updateCurentRepo])
 
   const isActiveRepoClass = repo => {
     return repo.name === currentRepo.name ? 'RepoList__repos-row--active' : '';

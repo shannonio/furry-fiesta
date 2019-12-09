@@ -16,7 +16,7 @@ const IssueList = ({
 
   useEffect(() => {
     fetchIssues(match.params.owner, match.params.name);
-  }, [match.params.name]);
+  }, [match.params, fetchIssues]);
 
   const avatarUrl = issue => issue.assignee ? issue.assignee.avatar_url : placeholderAvatar;
 
@@ -52,7 +52,7 @@ const IssueList = ({
          id={idx}
          key={issue.id}>
       <span className="IssueList__row--avatar">
-        <img src={ avatarUrl(issue) } />
+        <img src={ avatarUrl(issue) } alt="avatar"/>
       </span>
       <span className="IssueList__row--title">
         { issue.title }
