@@ -1,68 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This is a simple React/Redux application that will pull your authorized git repos so you can order the issues locally.
+This app will maintain your ordering via local storage, but beware if you clear it out you will lose all your hard work.
 
-In the project directory, you can run:
+## Run it
 
-### `npm start`
+After cloning the repo locally, you will need to add your github auth key to a `.env` file. I have included a sample `.env` that you may copy and edit with the correct ENV variable name
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Once you have your `.env` ready to go, you can now run
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+`npm install`
 
-### `npm test`
+and
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm start`
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Tests
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+To run the tests please run `npm run test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*A note about the tests*
 
-### `npm run eject`
+I held on to this project for a lot longer than intended because I wanted to make sure I had full test coverage,
+I didn't get to full test coverage because life took over in this case, but I was hoping to make it there. I do have a
+test file for the major components with a few tests each.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Theoretical API
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If I were implementing an API to maintain the order of the issues, it would look like this:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. GET '/issues/new'
+This would return a list of issues, each time this endpoint was called it would make a call
+to the github api to fetch an updated list of issues while also pulling the stored issues from our own
+database. The new issues would get appended to the bottom of the list for now. The new issues upon entering
+our system
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Alternative to 1.
+  If this app were definitely just for me, or my team, I could also simply set up a webhook on github so that I may receive the notifications on specific repos immediately.  
 
-## Learn More
+2. GET '/issues'
+This would simply return a list of the issues we have stored in our own database, if none exist
+an external call would be made to retrieve the issues and then update our database accordingly.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+3. UPDATE '/issue'
+This would update the issue we have stored, the only editable field on the issue however is "priority", for now at least.
